@@ -1,0 +1,39 @@
+---
+version: 2.0
+params:
+  - name: checkRoot
+    value: .
+
+steps:
+  pre_codecheck:
+    - checkout:
+        path:  QAFAPI #定义代码的根路径
+    - codehub:
+        url: 'https://codehub-dg-g.huawei.com/cbg_cloud_devops_tools/CSP_Script.git'
+        path: Script
+        branch: Common #下载分支，如果是tag，请使用refs/tags/tag名称
+
+    - sh:
+        command: | #生成lint文件执行的命令、脚本
+          #更换pclintxtoolbox版本需要用到，暂时无需切换
+          #export PclintPlusClangtidyToolBox=20210907
+          cp -rf /opt/buildtools/CI/20210907/ $WORKSPACE/QAFAPI
+          cd ${WORKSPACE}/QAFAPI/20210907/pclintxtoolbox/bin
+          #将编译脚本拷贝到bin目录下面并重命名，编译脚本中去掉getPackageInfo.sh相关操作
+          cp -rf ${WORKSPACE}/QAFAPI/scripts/build_codecheck.sh ${WORKSPACE}/QAFAPI/20210907/pclintxtoolbox/bin/build.sh
+          #每次执行完成后默认会在当前路径下生成编译数据文件compile_commands.json
+          sed -i "s/sleep 60/sleep 5/g" all.sh
+          sh all.sh
+        effect_tool: binscope,clangtidy #表示以上的命令、脚本clangtidy工具生效
+
+tool_params:
+  clangtidy:
+    compilerCommandsPath: ${WORKSPACE}/QAFAPI/20210907/pclintxtoolbox/bin/compile_commands.json  #编译数据库文件路径，相对代码仓根路径
+  secsolar:
+    need_compile: true  #true和false默认为true
+    #compile_root_dir:   #编译命令或者编译脚本执行路径（配置相对路径，目前例如$workspace配置会报错找不到路径）
+    compile_script: sh $WORKSPACE/QAFAPI/scripts/build_cpp.sh #业务编译脚本（业务编译脚本，如共用build2.0编译脚本，需要先调试成功，且去掉getPackageInfo.sh等处理包的操作）
+  binscope:
+    scan_dirs: thirdparty/libs/ohos/${OHOS_ARCH}     # scan_dirs&scan_file至少2选1，编译文件输出目录，相对于代码下载根目录的目录路径, 支持多路径，英文逗号分隔
+    #scan_file: xxx/aaa/bbb.o        # scan_dirs&scan_file至少2选1，相对于代码下载根目录的文件路径, scan_file只能填一个路径
+    relative_dir: thirdparty/libs/ohos/${OHOS_ARCH}      # 必填，编译文件输出目录，只支持单个路径, 用户填写，按用户填下的内容传给binscope

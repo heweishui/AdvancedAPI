@@ -1,0 +1,35 @@
+version: '2.0'
+env:
+  label: $buildLabel
+params:
+  - name: pipelineJobName
+    value: $ENV_PIPELINE_JOB_NAME
+  - name: codeRootDir
+    value: $serviceName
+  - name: scriptPath
+    value: script/build.sh
+  - name: langType
+  - name: projectPath_maven
+  - name: mavenCheckParam
+  - name: projectPath_npm
+  - name: excludeCfgFile
+steps:
+  PRE_BUILD:
+    - checkout:
+        path: $codeRootDir
+    - template:
+        url: 'https://codehub-dg-g.huawei.com/cbg_cloud_devops_tools/CSP_Script.git'
+        path: clouddragon/build2.0/build_template/service/pre_build_template.yml
+        branch: Common
+  BUILD:
+    - template:
+        url: 'https://codehub-dg-g.huawei.com/cbg_cloud_devops_tools/CSP_Script.git'
+        path: >-
+          clouddragon/build2.0/build_template/service/build_template_maven_npm.yml
+        branch: Common
+  POST_BUILD:
+    - template:
+        url: 'https://codehub-dg-g.huawei.com/cbg_cloud_devops_tools/CSP_Script.git'
+        path: >-
+          clouddragon/build2.0/build_template/service/post_build_template_maven_npm.yml
+        branch: Common

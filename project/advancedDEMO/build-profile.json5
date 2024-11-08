@@ -1,0 +1,42 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "storePassword": "0000001A1377BB8C7111CBA5FB9A7BEB9A1BC314DAED61C63D255A5F4EBB36F9C80FA8766BF2CE31FD8B",
+          "certpath": "sign_account/auto_ohos_default_src_com.huawei.advancedDEMO.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001AF51BE5E5F113E36391A899B146AC02DC57A74A9046B9FB94479217B8EDCBBC7F545B20BE5582",
+          "profile": "sign_account/auto_ohos_default_src_com.huawei.advancedDEMO.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "sign_account/auto_ohos_default_src_com.huawei.advancedDEMO.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "4.0.0(10)",
+        "compatibleSdkVersion": "4.0.0(10)",
+        "targetSdkVersion": "4.0.0(10)",
+        "runtimeOS": "HarmonyOS"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

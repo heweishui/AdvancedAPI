@@ -1,0 +1,38 @@
+{
+	"id": "UniappToAtomicService",
+	"name": "UniappToAtomicService",
+	"description": "Uniapp项目转鸿蒙元服务插件",
+	"displayName": "UniappToAtomicService",
+	"version": "1.0.0",
+	"publisher": "Huawei Technologies Co.Ltd.",
+	"engines": {
+		"HBuilderX": "^2.7.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"main": "./extension",
+	"activationEvents": [
+		"onCommand:extension.createHarmony"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.createHarmony",
+				"title": "华为-元服务"
+			}
+		],
+		"menus": {
+			"menubar/publish": [
+				{
+					"command": "extension.createHarmony",
+					"group": "z_commands"
+				}
+			]
+		}
+	},
+	"extensionDependencies": [
+		"plugin-manager"
+	],
+	"dependencies": {}
+}

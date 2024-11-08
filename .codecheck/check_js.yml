@@ -1,0 +1,13 @@
+---
+version: 2.0
+params:
+  - name: checkRoot
+    value: .
+ 
+steps:
+  pre_codecheck:
+    - checkout:
+        path: coodRoodDir #定义代码的根路径
+tool_params:
+  secsolar: 
+    source_dir: ./  #扫描目录，默认是代码仓根目录

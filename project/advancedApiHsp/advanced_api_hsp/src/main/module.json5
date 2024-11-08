@@ -1,0 +1,13 @@
+{
+  "module": {
+    "name": "advanced_api_hsp",
+    "description": "$string:shared_desc",
+    "deviceTypes": [
+      "phone",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "pages": "$profile:main_pages",
+    //    "type": "shared",
+  }
+}

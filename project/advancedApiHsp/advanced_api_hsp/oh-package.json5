@@ -1,0 +1,12 @@
+{
+  "license": "Apache-2.0",
+  "devDependencies": {},
+  "author": "",
+  "name": "advanced_api_hsp",
+  "description": "Please describe the basic information.",
+  "main": "./src/main/ets/Index.ts",
+  "version": "1.0.0",
+  "dependencies": {
+
+  }
+}

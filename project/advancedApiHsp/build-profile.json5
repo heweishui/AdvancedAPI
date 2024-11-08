@@ -1,0 +1,52 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "sign/auto_ohos_default_advancedApiHsp_com.huawei.hmos.advancedapi.cer",
+          "storePassword": "0000001BBD85BAEAF8E5C1F48B327A7E56932B9FEE0ED522112187EDFD25647561876131CDB34418E1BFA6",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BECD87E27EB579322F74DC209D8D6A691AE2ACC5FFB7F68B5802B0E5BE2C8B73075A8C668298ED7",
+          "profile": "sign/auto_ohos_default_advancedApiHsp_com.huawei.hmos.advancedapi.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "sign/auto_ohos_default_advancedApiHsp_com.huawei.hmos.advancedapi.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "4.0.0(10)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "advanced_api_hsp",
+      "srcPath": "./advanced_api_hsp",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "advanced_api_har",
+      "srcPath": "./advanced_api_har"
+    }
+  ]
+}
