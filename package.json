@@ -1,7 +1,7 @@
 {
-  "name": "qafapi",
+  "name": "advancedapi",
   "version": "1.0.0",
-  "description": "QAF API",
+  "description": "Advanced API",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:advanced": "node build/build.js advanced",
@@ -10,10 +10,6 @@
     "dev": "node build/build.js native --watch",
     "lint": "eslint src",
     "format": "eslint src --ext .js --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@codehub-dg-g.huawei.com:2222/Application_Ecosystem/QuickApp/QAFAPI.git"
   },
   "author": "",
   "license": "ISC",

@@ -153,7 +153,10 @@ export default class ASViedo {
         FileioBase.ohosReadSync(fd, buf)
 
         // 获取文件显示名
-        const displayName = 'VIDEO_' + new Date().getTime() + '_' + filePath.split('/').splice(-1, 1).toString()
+        let displayName = 'VIDEO_' + new Date().getTime() + '_' + filePath.split('/').splice(-1, 1).toString()
+        if(!displayName.includes('.')) {
+          displayName += '.mp4'
+        }
         uri = fileUri.getUriFromPath(uri)
         const imageUri = await saveMedia(photoAccessHelper.PhotoType.VIDEO, displayName, uri, buf)
         resolve({ path: imageUri })

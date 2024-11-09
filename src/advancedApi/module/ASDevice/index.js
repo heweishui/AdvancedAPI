@@ -14,99 +14,103 @@ export default class ASDevice {
   }
   
   getSystemInfoSync () {
-    const {
-      brand: deviceBrand,
-      productModel: deviceModel,
-      osFullName,
-      deviceType,
-      udid: deviceId,
-      sdkApiVersion: ohosAPILevel
-    } = DeivceBase.getDeviceInfo()
-    const romName = osFullName.split('-')[0]
-    const osName = romName
-    const romVersion = osFullName.split('-')[1]
-    const osVersion = romVersion
-
-    const osLanguage = I18n.System.getSystemLanguage()
-    const displayInfo = DisplayBase.ohosGetDisplay()
-    const { rotation, densityPixels: devicePixelRatio } = displayInfo
-    let { width: screenWidth, height: screenHeight } = displayInfo
-    screenWidth = Math.round(screenWidth / devicePixelRatio)
-    screenHeight = Math.round(screenHeight / devicePixelRatio)
-    const deviceOrientation = (rotation === 1 || rotation === 3) ? 'landscape' : 'portrait'
-
-    const {
-      signatureInfo,
-      versionName: appVersion,
-      versionCode: appVersionCode,
-      appInfo
-    } = globalThis.bundleInfoForSelf
-    const appName = context.resourceManager.getStringSync(appInfo.labelId)
-    const appId = signatureInfo.appId
-
-    const {
-      language: appLanguage
-    } = context.config
-
-    let {
-      width: windowWidth,
-      height: windowHeight,
-      top: windowTop
-    } = globalThis.lastWindow.getWindowProperties()?.windowRect
-    const {
-      isFullScreen, isLayoutFullScreen
-    } = globalThis.lastWindow.getWindowProperties()
-    const systemCutout = globalThis.lastWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
-    const statusBarHeight = Math.round((systemCutout?.topRect?.height || 0) / devicePixelRatio)
-    const windowBottom = (isFullScreen || isLayoutFullScreen) ? Math.round(windowHeight / devicePixelRatio) :
-      Math.round((windowHeight + statusBarHeight) / devicePixelRatio)
-    windowTop = Math.round(windowTop / devicePixelRatio)
-    windowWidth = Math.round(windowWidth / devicePixelRatio)
-    windowHeight = Math.round(windowHeight / devicePixelRatio)
-
-    const brand = deviceBrand
-    const model = deviceModel
-    const pixelRatio = devicePixelRatio
-    const system = osFullName
-    const language = osLanguage
-    const platform = osName
-    const version = osVersion
-    const result = {
-      deviceType,
-      deviceBrand,
-      brand,
-      deviceModel,
-      platform,
-      model,
-      deviceOrientation,
-      devicePixelRatio,
-      pixelRatio,
-      system,
-      osName,
-      osVersion,
-      version,
-      osLanguage,
-      language,
-      ohosAPILevel,
-      romName,
-      romVersion,
-      appId,
-      appName,
-      appVersion,
-      appVersionCode,
-      appLanguage,
-      screenWidth,
-      screenHeight,
-      windowWidth,
-      windowHeight,
-      windowTop,
-      windowBottom,
-      statusBarHeight
+    try {
+      const {
+        brand,
+        productModel,
+        osFullName,
+        deviceType,
+        udid,
+        sdkApiVersion
+      } = DeivceBase.getDeviceInfo()
+      const romName = osFullName.split('-')[0]
+      const osName = romName
+      const romVersion = osFullName.split('-')[1]
+      const osVersion = romVersion
+  
+      const osLanguage = I18n.System.getSystemLanguage()
+      const displayInfo = DisplayBase.ohosGetDisplay()
+      const { rotation, densityPixels: devicePixelRatio } = displayInfo
+      let { width: screenWidth, height: screenHeight } = displayInfo
+      screenWidth = Math.round(screenWidth / devicePixelRatio)
+      screenHeight = Math.round(screenHeight / devicePixelRatio)
+      const deviceOrientation = (rotation === 1 || rotation === 3) ? 'landscape' : 'portrait'
+  
+      const appVersion = globalThis.bundleInfoForSelf.versionName
+      const appVersionCode = globalThis.bundleInfoForSelf.versionCode
+      const appInfo = globalThis.bundleInfoForSelf.appInfo
+      const signatureInfo = globalThis.bundleInfoForSelf.signatureInfo
+      const appName = context.resourceManager.getStringSync(appInfo.labelId)
+      const appId = signatureInfo.appId
+  
+      const appLanguage = context.config.language
+  
+      let {
+        width: windowWidth,
+        height: windowHeight,
+        top: windowTop
+      } = globalThis.lastWindow.getWindowProperties()?.windowRect
+      const {
+        isFullScreen, isLayoutFullScreen
+      } = globalThis.lastWindow.getWindowProperties()
+      const systemCutout = globalThis.lastWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
+      const statusBarHeight = Math.round((systemCutout?.topRect?.height || 0) / devicePixelRatio)
+      const windowBottom = (isFullScreen || isLayoutFullScreen) ? Math.round(windowHeight / devicePixelRatio) :
+        Math.round((windowHeight + statusBarHeight) / devicePixelRatio)
+      windowTop = Math.round(windowTop / devicePixelRatio)
+      windowWidth = Math.round(windowWidth / devicePixelRatio)
+      windowHeight = Math.round(windowHeight / devicePixelRatio)
+  
+      const deviceBrand = brand
+      const deviceModel = productModel
+      const deviceId = udid
+      const model = deviceModel
+      const pixelRatio = devicePixelRatio
+      const system = osFullName
+      const language = osLanguage
+      const platform = osName
+      const version = osVersion
+      const ohosAPILevel = sdkApiVersion
+      const result = {
+        deviceType,
+        deviceBrand,
+        brand,
+        deviceModel,
+        platform,
+        model,
+        deviceOrientation,
+        devicePixelRatio,
+        pixelRatio,
+        system,
+        osName,
+        osVersion,
+        version,
+        osLanguage,
+        language,
+        ohosAPILevel,
+        romName,
+        romVersion,
+        appId,
+        appName,
+        appVersion,
+        appVersionCode,
+        appLanguage,
+        screenWidth,
+        screenHeight,
+        windowWidth,
+        windowHeight,
+        windowTop,
+        windowBottom,
+        statusBarHeight
+      }
+      if (deviceId) {
+        result.deviceId = deviceId
+      }
+      console.info(`[AdvancedAPI] result: ${JSON.stringify(result)}`)
+      return result
+    } catch (error) {
+      console.error(`Failed to return result. Cause code: ${error.code}, message: ${error.message}`);
     }
-    if (deviceId) {
-      result.deviceId = deviceId
-    }
-    return result
   }
 
   getDeviceInfo () {

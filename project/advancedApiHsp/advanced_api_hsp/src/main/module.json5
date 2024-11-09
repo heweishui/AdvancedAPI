@@ -8,6 +8,6 @@
     ],
     "deliveryWithInstall": true,
     "pages": "$profile:main_pages",
-    //    "type": "shared",
+        "type": "shared",
   }
 }

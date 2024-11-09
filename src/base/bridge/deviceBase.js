@@ -9,6 +9,14 @@
 import deviceInfo from '@ohos.deviceInfo'
 export class DeivceBase {
   static getDeviceInfo () {
-    return deviceInfo
+    const resultInfo = {
+      brand: deviceInfo.brand,
+      productModel: deviceInfo.productModel,
+      osFullName: deviceInfo.osFullName,
+      deviceType: deviceInfo.deviceType,
+      udid: deviceInfo.udid,
+      sdkApiVersion: deviceInfo.sdkApiVersion
+    }
+    return resultInfo
   }
 }

@@ -1,8 +1,3 @@
-### 仓库信息
-
-- 链接：https://codehub-g.huawei.com/Ecosystem/taro-ohos/AdvancedAPI_OHOS/files?ref=master
-- 简介：高阶API实现，引用OS原生能力SDK，对外提供符合快应用、Taro标准的API（原始库支持快应用，Taro适配中）
-
 ### 编译生成js
 
 git clone下载源码，在根目录中执行：
